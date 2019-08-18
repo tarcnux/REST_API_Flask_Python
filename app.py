@@ -1,7 +1,12 @@
-from flask import Flask, jsonify
-
+from flask import Flask, jsonify, request
+import json
 
 app = Flask(__name__)
+
+
+@app.route("/")
+def aloha():
+    return "Alo Ha"
 
 
 @app.route("/<int:id>")
@@ -15,6 +20,17 @@ def soma(inteiro1, inteiro2):
         'inteiro1': inteiro1,
         'inteiro2': inteiro2,
         'soma': inteiro1+inteiro2
+    })
+
+
+@app.route("/somav2", methods=['POST'])
+def somav2():
+    dados = json.loads(request.data)
+    print(dados['valores'])
+    total = sum(dados['valores'])
+    return jsonify({
+        'valores': dados['valores'],
+        'soma': total
     })
 
 
