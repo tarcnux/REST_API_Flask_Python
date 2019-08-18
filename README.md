@@ -6,20 +6,18 @@ REST - Representational State Transfer
 # [Curso de FLASK na Digital Innovation One](http://gg.gg/digitalinnovation)
 18/08/2019
 
-# CRUD completo com DAO e MySQL
-
 ## Criação de Ambiente Virtual
  `python -m venv env_flask`
  `env_flask\Scripts\activate`
 
  `pip install flask`
 
-
  `pip freeze > requirements.txt`
+ `pip install -r requirements.txt`
 
 
 ## Rota para a primeira aplicação
- http://127.0.0.1:5000/inicio
+ http://127.0.0.1:5000/Tarcnux
 
 ## Para reiniciar o server automaticamente
 `app.run(debug=True)`
