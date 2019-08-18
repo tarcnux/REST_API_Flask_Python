@@ -6,6 +6,11 @@ REST - Representational State Transfer
 # [Curso de FLASK na Digital Innovation One](http://gg.gg/digitalinnovation)
 18/08/2019
 
+## API completa
+ `cd dev_api`
+ `py .\app.py`
+
+
 ## Criação de Ambiente Virtual
  `python -m venv env_flask`
  `env_flask\Scripts\activate`
