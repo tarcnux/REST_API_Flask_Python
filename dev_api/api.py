@@ -18,10 +18,27 @@ desenvolvedores = [
 ]
 
 
+class ListaDesenvolvedores(Resource):
+    '''Permite registrar um novo desenvolvedor e lista todos desenvovedores'''
+
+    def get(self):
+        '''Exibe lista de todos desenvolvedores'''
+        return desenvolvedores
+
+    def post(self):
+        '''Insere um novo desenvolvedor no final da lista'''
+        dados = json.loads(request.data)
+        posicao = len(desenvolvedores)
+        dados["id"] = posicao
+        desenvolvedores.append(dados)
+        return desenvolvedores[posicao]
+
+
 class Desenvolvedor(Resource):
     '''Retorna, altera e deleta um desenvolvedor pelo ID'''
 
     def get(self, id):
+        '''Se existir, retorna um desenvolvedor'''
         try:
             response = desenvolvedores[id]
             print(response)
@@ -34,6 +51,7 @@ class Desenvolvedor(Resource):
         return response
 
     def put(self, id):
+        '''Se existir, altera dados de um desenvolvedor'''
         dados = json.loads(request.data)
         try:
             desenvolvedores[id] = dados
@@ -47,16 +65,23 @@ class Desenvolvedor(Resource):
         return response
 
     def delete(self, id):
+        '''Se existir, exclui um desenvolvedor'''
+        global desenvolvedores
         try:
-            desenvolvedores.pop(id)
+            # desenvolvedores.pop(id)
+            existe = [i for i in desenvolvedores if (i['id'] == id)]
+            if not existe:
+                raise IndexError
+            desenvolvedores = [
+                i for i in desenvolvedores if not (i['id'] == id)]
             response = {"status": "sucesso",
                         "mensagem": "Registro " + str(id) + " excluído."}
         except IndexError:
             mensagem = f"Desenvolvedor de ID {id} não existe."
             response = {"status": "erro", "mensagem": mensagem}
-        except Exception:
-            mensagem = "Erro desconhecido."
-            response = {"status": "erro", "mensagem": mensagem}
+        except Exception as e:
+            #mensagem = "Erro desconhecido."
+            response = {"status": "erro", "mensagem": str(e)}
         return response
 
 
@@ -67,6 +92,7 @@ class Tarcnux(Resource):
 
 api.add_resource(Tarcnux, '/')
 api.add_resource(Desenvolvedor, '/v2/dev/<int:id>/')
+api.add_resource(ListaDesenvolvedores, '/v2/dev/')
 
 if __name__ == '__main__':
     app.run(debug=True)
