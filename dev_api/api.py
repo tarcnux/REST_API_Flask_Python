@@ -28,10 +28,12 @@ class ListaDesenvolvedores(Resource):
     def post(self):
         '''Insere um novo desenvolvedor no final da lista'''
         dados = json.loads(request.data)
-        posicao = len(desenvolvedores)
+        tamanho = len(desenvolvedores)
+        # Incrementa o último id
+        posicao = int(desenvolvedores[tamanho-1]["id"])+1
         dados["id"] = posicao
         desenvolvedores.append(dados)
-        return desenvolvedores[posicao]
+        return desenvolvedores[tamanho]
 
 
 class Desenvolvedor(Resource):
@@ -90,6 +92,7 @@ class Tarcnux(Resource):
         return {'Alo': 'Ha Tarcnux'}
 
 
+# Rotas
 api.add_resource(Tarcnux, '/')
 api.add_resource(Desenvolvedor, '/v2/dev/<int:id>/')
 api.add_resource(ListaDesenvolvedores, '/v2/dev/')
