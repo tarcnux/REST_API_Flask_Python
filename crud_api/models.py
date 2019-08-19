@@ -20,6 +20,10 @@ class Pessoa(Base):
     def __repr__(self):
         return f'<Pessoa {self.nome}>'
 
+    def save(self):
+        db_session.add(self)
+        db_session.commit()
+
 
 class Atividade(Base):
     __tablename__ = 'atividade'
