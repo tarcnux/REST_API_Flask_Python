@@ -11,9 +11,17 @@ REST - Representational State Transfer
 18/08/2019
 
 ## API completa
- `cd dev_api`
+`cd dev_api`
+
+### Quatro verbos POST, PUT, GET e DELETE  
  `py .\app.py`
 
+### Com flask_restful, verbos: POST, PUT, GET e DELETE 
+ `py .\api.py`
+
+### Com persistência em banco de dados
+`cd crud_api`
+`py .\models.py` Para criar o banco de dados
 
 ## Criação de Ambiente Virtual
  `python -m venv env_flask`
