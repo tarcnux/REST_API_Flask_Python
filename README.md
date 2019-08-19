@@ -1,6 +1,10 @@
 # REST_API_Flask_Python
 REST API com Flask
 
+[Flask](https://palletsprojects.com/p/flask/)
+
+[Flask RESTful](https://flask-restful.readthedocs.io/en/latest/)
+
 REST - Representational State Transfer
 
 # [Curso de FLASK na Digital Innovation One](http://gg.gg/digitalinnovation)
