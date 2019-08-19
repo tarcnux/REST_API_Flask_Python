@@ -8,14 +8,14 @@ def insere_pessoa():
 
 
 def consulta_pessoa():
-    #pessoas = Pessoa.query.all()
+    pessoas = Pessoa.query.all()
     # for pessoa in pessoas:
     #    print(pessoa.nome)
-
-    pessoa = Pessoa.query.filter_by(nome='Tarcísio').first()
+    print(pessoas)
+    #pessoa = Pessoa.query.filter_by(nome='TNX').first()
     # for p in pessoa:
     #    print(pessoa.nome)
-    print(f"Nome: {pessoa.nome} - Idade: {pessoa.idade}")
+    #print(f"Nome: {pessoa.nome} - Idade: {pessoa.idade}")
 
 
 def altera_pessoa():
@@ -24,7 +24,14 @@ def altera_pessoa():
     pessoa.save()
 
 
+def exclui_pessoa():
+    pessoa = Pessoa.query.filter_by(nome='TNX').first()
+    pessoa.delete()
+
+
 if __name__ == '__main__':
-    # insere_pessoa()
-    altera_pessoa()
+    insere_pessoa()
+    # altera_pessoa()
+    consulta_pessoa()
+    exclui_pessoa()
     consulta_pessoa()
