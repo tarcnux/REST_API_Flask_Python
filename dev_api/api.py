@@ -46,8 +46,18 @@ class Desenvolvedor(Resource):
             response = {"status": "erro", "mensagem": mensagem}
         return response
 
-    def delete(self):
-        return {'Alo': 'Ha DELETE'}
+    def delete(self, id):
+        try:
+            desenvolvedores.pop(id)
+            response = {"status": "sucesso",
+                        "mensagem": "Registro " + str(id) + " excluído."}
+        except IndexError:
+            mensagem = f"Desenvolvedor de ID {id} não existe."
+            response = {"status": "erro", "mensagem": mensagem}
+        except Exception:
+            mensagem = "Erro desconhecido."
+            response = {"status": "erro", "mensagem": mensagem}
+        return response
 
 
 class Tarcnux(Resource):
