@@ -18,6 +18,13 @@ def consulta_pessoa():
     print(f"Nome: {pessoa.nome} - Idade: {pessoa.idade}")
 
 
+def altera_pessoa():
+    pessoa = Pessoa.query.filter_by(nome='Tarcísio').first()
+    pessoa.idade = 401
+    pessoa.save()
+
+
 if __name__ == '__main__':
     # insere_pessoa()
+    altera_pessoa()
     consulta_pessoa()
