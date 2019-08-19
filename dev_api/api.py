@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from habilidades import Habilidades
 import json
 
 app = Flask(__name__)
@@ -96,6 +97,7 @@ class Tarcnux(Resource):
 api.add_resource(Tarcnux, '/')
 api.add_resource(Desenvolvedor, '/v2/dev/<int:id>/')
 api.add_resource(ListaDesenvolvedores, '/v2/dev/')
+api.add_resource(Habilidades, '/v2/habilidades/')
 
 if __name__ == '__main__':
     app.run(debug=True)
