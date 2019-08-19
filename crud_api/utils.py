@@ -7,8 +7,10 @@ def insere_pessoa():
 
 
 def consulta():
-    pass
+    pessoa = Pessoa.query.filter_by(nome='Tarcnux')
+    print(pessoa)
 
 
 if __name__ == '__main__':
-    insere_pessoa()
+    # insere_pessoa()
+    consulta()
