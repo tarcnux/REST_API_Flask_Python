@@ -18,8 +18,19 @@ desenvolvedores = [
 
 
 class Desenvolvedor(Resource):
-    def get(self):
-        return {'Alo': 'Ha GET'}
+    '''Retorna, altera e deleta um desenvolvedor pelo ID'''
+
+    def get(self, id):
+        try:
+            response = desenvolvedores[id]
+            print(response)
+        except IndexError:
+            mensagem = f"Desenvolvedor de ID {id} não existe."
+            response = {"status": "erro", "mensagem": mensagem}
+        except Exception:
+            mensagem = "Erro desconhecido."
+            response = {"status": "erro", "mensagem": mensagem}
+        return response
 
     def put(self):
         return {'Alo': 'Ha PUT'}
@@ -34,7 +45,7 @@ class Tarcnux(Resource):
 
 
 api.add_resource(Tarcnux, '/')
-api.add_resource(Desenvolvedor, '/v2/dev/')
+api.add_resource(Desenvolvedor, '/v2/dev/<int:id>/')
 
 if __name__ == '__main__':
     app.run(debug=True)
