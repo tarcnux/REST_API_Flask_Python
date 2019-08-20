@@ -28,16 +28,35 @@ class PessoaFlask(Resource):
         '''Alteração de nome e idade'''
         pessoa = Pessoa.query.filter_by(nome=nome).first()
         dados = request.json
-        if 'nome' in dados:
-            pessoa.nome = dados['nome']
-        if 'idade' in dados:
-            pessoa.idade = dados['idade']
-        pessoa.save()
-        response = {
-            'nome': pessoa.nome,
-            'idade': pessoa.idade,
-            'id': pessoa.id
-        }
+        try:
+            if 'nome' in dados:
+                pessoa.nome = dados['nome']
+            if 'idade' in dados:
+                pessoa.idade = dados['idade']
+            pessoa.save()
+            response = {
+                'nome': pessoa.nome,
+                'idade': pessoa.idade,
+                'id': pessoa.id
+            }
+        except AttributeError:
+            response = {
+                'status': 'error',
+                'mensagem': 'Pessoa não encontrada'
+            }
+        return response
+
+    def delete(self, nome):
+        pessoa = Pessoa.query.filter_by(nome=nome).first()
+        try:
+            pessoa.delete()
+            mensagem = f"Pessoa {pessoa.nome} excluída com sucesso."
+            response = {'status': 'sucesso', 'mensagem': mensagem}
+        except AttributeError:
+            response = {
+                'status': 'error',
+                'mensagem': 'Pessoa não encontrada'
+            }
         return response
 
 
