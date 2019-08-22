@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
-from models import Pessoa
+from models import Pessoa, Atividade
 
 
 app = Flask(__name__)
@@ -83,9 +83,36 @@ class InserePessoaFlask(Resource):
         return response
 
 
-api.add_resource(PessoaFlask, '/pessoa/<string:nome>/')
-api.add_resource(ListaPessoasFlask, '/pessoas/')
-api.add_resource(InserePessoaFlask, '/pessoa/')
+class ListaAtividadesFlask(Resource):
+    def get(self):
+        atividades = Atividade.query.all()
+        response = [{"id": atividade.id,
+                     "nome": atividade.nome,
+                     "pessoa": atividade.pessoa.nome
+                     } for atividade in atividades]
+        return response
+
+
+class InsereAtividadeFlask(Resource):
+    def post(self):
+        dados = request.json
+        pessoa = Pessoa.query.filter_by(nome=dados['pessoa']).first()
+        atividade = Atividade(nome=dados['nome'], pessoa=pessoa)
+        atividade.save()
+        response = {
+            'pessoa': atividade.pessoa.nome,
+            'nome': atividade.nome,
+            'id': atividade.id
+        }
+        return response
+
+
+api.add_resource(PessoaFlask, '/v1/pessoa/<string:nome>/')
+api.add_resource(ListaPessoasFlask, '/v1/pessoas/')
+api.add_resource(InserePessoaFlask, '/v1/pessoa/')
+api.add_resource(InsereAtividadeFlask, '/v1/atividade/')
+api.add_resource(ListaAtividadesFlask, '/v1/atividades/')
+# api.add_resource(AtividadeFlask, '/v1/atividade/<int:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
